@@ -6,18 +6,15 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "log")
+public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
     private String username;
-
-    private String password;
-    private String fullname;
-    private String role;   // 存储 "ROLE_ADMIN" 或 "ROLE_USER"
-    private Boolean enabled = true;
+    private String operation;
+    private String detail;
+    private String ip;
     private LocalDateTime createTime = LocalDateTime.now();
 }
