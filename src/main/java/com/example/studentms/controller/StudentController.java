@@ -1,5 +1,6 @@
 package com.example.studentms.controller;
 
+import com.example.studentms.annotation.LogAnnotation;
 import com.example.studentms.entity.Student;
 import com.example.studentms.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class StudentController {
 
     // 保存（新增或更新）
     @PostMapping("/save")
+    @LogAnnotation(operation = "新增/编辑学生", detail = "#student.name + '(' + #student.studentId + ')'")
     public String save(@ModelAttribute Student student) {
         studentService.save(student);
         return "redirect:/student/list";
@@ -53,6 +55,7 @@ public class StudentController {
 
     // 删除学生
     @GetMapping("/delete/{id}")
+    @LogAnnotation(operation = "删除学生", detail = "ID: " + "#id")
     public String delete(@PathVariable Long id) {
         studentService.deleteById(id);
         return "redirect:/student/list";
