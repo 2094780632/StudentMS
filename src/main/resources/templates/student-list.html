@@ -14,6 +14,9 @@
             <h2><i class="bi bi-person-graduate"></i> 学生信息管理</h2>
         </div>
         <div class="col-md-6 text-end">
+            <a th:href="@{/export/students(keyword=${keyword})}" class="btn btn-success">
+                <i class="bi bi-file-excel"></i> 导出Excel
+            </a>
             <a href="/student/add" class="btn btn-primary"><i class="bi bi-plus-circle"></i> 新增学生</a>
         </div>
     </div>
