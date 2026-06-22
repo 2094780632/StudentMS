@@ -1,8 +1,13 @@
 package com.example.studentms.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 
 @Data
 @Entity
@@ -19,6 +24,9 @@ public class Student {
     private Integer age;
     private String className;
     private String major;
+
+    private String grade;  // 年级，如 "高三"
+
     private LocalDateTime createTime = LocalDateTime.now();
     private LocalDateTime updateTime = LocalDateTime.now();
 }

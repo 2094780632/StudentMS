@@ -24,6 +24,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setFullname("系统管理员");
             admin.setRole("ROLE_ADMIN");
+            admin.setIdentity("TEACHER");
             admin.setEnabled(true);
             userRepository.save(admin);
 
@@ -32,6 +33,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             normal.setPassword(passwordEncoder.encode("user123"));
             normal.setFullname("普通用户");
             normal.setRole("ROLE_USER");
+            normal.setIdentity("STUDENT");
             normal.setEnabled(true);
             userRepository.save(normal);
 

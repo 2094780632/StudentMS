@@ -1,6 +1,5 @@
 package com.example.studentms.config;
 
-import com.example.studentms.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.example.studentms.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -28,6 +29,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/login", "/webjars/**").permitAll()
+                        .requestMatchers("/user/**").hasRole("ADMIN")
+                        .requestMatchers("/teacher-student/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
