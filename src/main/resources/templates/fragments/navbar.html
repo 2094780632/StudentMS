@@ -11,26 +11,31 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
+                <!-- 管理员/教师：学生管理 -->
+                <li class="nav-item" th:if="${currentUser == null or currentUser.role == 'ROLE_ADMIN' or currentUser.identity == 'TEACHER'}">
                     <a class="nav-link" th:href="@{/student/list}">
                         <i class="bi bi-person-lines-fill"></i> 学生管理
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- 教师：我的学生 -->
+                <li class="nav-item" th:if="${currentUser != null and currentUser.identity == 'TEACHER'}">
                     <a class="nav-link" th:href="@{/teacher-student/my-students}">
                         <i class="bi bi-people-fill"></i> 我的学生
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- 学生：我的老师 -->
+                <li class="nav-item" th:if="${currentUser != null and currentUser.identity == 'STUDENT'}">
                     <a class="nav-link" th:href="@{/teacher-student/my-teachers}">
                         <i class="bi bi-person-workspace"></i> 我的老师
                     </a>
                 </li>
+                <!-- 管理员：用户管理 -->
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/user/list}">
                         <i class="bi bi-person-badge"></i> 用户管理
                     </a>
                 </li>
+                <!-- 管理员：操作日志 -->
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/log/list}">
                         <i class="bi bi-clock-history"></i> 操作日志

@@ -21,7 +21,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         if (userRepository.count() == 0) {
             User admin = new User();
             admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setPassword("123456");
             admin.setFullname("系统管理员");
             admin.setRole("ROLE_ADMIN");
             admin.setIdentity("TEACHER");
@@ -30,7 +30,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             User normal = new User();
             normal.setUsername("user");
-            normal.setPassword(passwordEncoder.encode("user123"));
+            normal.setPassword("123456");
             normal.setFullname("普通用户");
             normal.setRole("ROLE_USER");
             normal.setIdentity("STUDENT");
@@ -39,8 +39,8 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             System.out.println("=========================================");
             System.out.println("初始化用户创建成功！");
-            System.out.println("管理员账号: admin / admin123");
-            System.out.println("普通账号:   user / user123");
+            System.out.println("管理员账号: admin / 123456");
+            System.out.println("普通账号:   user / 123456");
             System.out.println("=========================================");
         }
     }

@@ -73,27 +73,27 @@ CREATE TABLE `teacher_student` (
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- ============================================
--- 第三步：插入用户（密码=123456）
--- BCrypt(123456) = $2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6
+-- 第三步：插入用户（密码均为明文 123456）
+-- 使用 NoOpPasswordEncoder，无需加密
 -- ============================================
 
 -- 管理员
 INSERT INTO `user` (`username`, `password`, `fullname`, `role`, `identity`, `enabled`, `create_time`) VALUES
-('admin', '$2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6', '系统管理员', 'ROLE_ADMIN', 'TEACHER', 1, NOW());
+('admin', '123456', '系统管理员', 'ROLE_ADMIN', 'TEACHER', 1, NOW());
 
--- 教师（3人）
+-- 教师（4人）
 INSERT INTO `user` (`username`, `password`, `fullname`, `role`, `identity`, `enabled`, `create_time`) VALUES
-('teacher_wang',  '$2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6', '王老师', 'ROLE_USER', 'TEACHER', 1, NOW()),
-('teacher_li',    '$2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6', '李老师', 'ROLE_USER', 'TEACHER', 1, NOW()),
-('teacher_zhang', '$2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6', '张老师', 'ROLE_USER', 'TEACHER', 1, NOW()),
-('teacher_zhao',  '$2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6', '赵老师', 'ROLE_USER', 'TEACHER', 1, NOW());
+('teacher_wang',  '123456', '王老师', 'ROLE_USER', 'TEACHER', 1, NOW()),
+('teacher_li',    '123456', '李老师', 'ROLE_USER', 'TEACHER', 1, NOW()),
+('teacher_zhang', '123456', '张老师', 'ROLE_USER', 'TEACHER', 1, NOW()),
+('teacher_zhao',  '123456', '赵老师', 'ROLE_USER', 'TEACHER', 1, NOW());
 
 -- 学生用户（4人）
 INSERT INTO `user` (`username`, `password`, `fullname`, `role`, `identity`, `enabled`, `create_time`) VALUES
-('student_zhao', '$2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6', '赵同学', 'ROLE_USER', 'STUDENT', 1, NOW()),
-('student_qian', '$2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6', '钱同学', 'ROLE_USER', 'STUDENT', 1, NOW()),
-('student_sun',  '$2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6', '孙同学', 'ROLE_USER', 'STUDENT', 1, NOW()),
-('student_zhou', '$2a$10$wHgeAi0ySXvHvaKTq.50o.MoQkT5Ayv9r0S2hQQ2lNnmMrfP0LtR6', '周同学', 'ROLE_USER', 'STUDENT', 1, NOW());
+('student_zhao', '123456', '赵同学', 'ROLE_USER', 'STUDENT', 1, NOW()),
+('student_qian', '123456', '钱同学', 'ROLE_USER', 'STUDENT', 1, NOW()),
+('student_sun',  '123456', '孙同学', 'ROLE_USER', 'STUDENT', 1, NOW()),
+('student_zhou', '123456', '周同学', 'ROLE_USER', 'STUDENT', 1, NOW());
 
 -- ============================================
 -- 第四步：插入学生档案（30条）

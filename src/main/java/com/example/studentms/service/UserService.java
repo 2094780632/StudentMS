@@ -41,8 +41,7 @@ public class UserService {
 
     public void saveUser(User user) {
         if (user.getId() == null) {
-            // 新增：直接加密密码保存
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            // 新增：直接保存明文密码
         } else {
             // 编辑：若 password 为空或 null，从数据库查出原密码回填
             if (user.getPassword() == null || user.getPassword().isEmpty()) {
@@ -50,10 +49,8 @@ public class UserService {
                 if (existing != null) {
                     user.setPassword(existing.getPassword());
                 }
-            } else {
-                // 密码非空，加密后保存
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
             }
+            // 密码非空则直接保存（明文）
         }
         userRepository.save(user);
     }
