@@ -1,17 +1,24 @@
 package com.example.studentms.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.example.studentms.annotation.LogAnnotation;
 import com.example.studentms.entity.Student;
 import com.example.studentms.service.StudentService;
 import com.example.studentms.service.TeacherStudentService;
 import com.example.studentms.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import com.example.studentms.util.CurrentUserUtil;
 
 @Controller
 @RequestMapping("/student")
@@ -26,11 +33,18 @@ public class StudentController {
     @Autowired
     private TeacherStudentService teacherStudentService;
 
+    @Autowired
+    private CurrentUserUtil currentUserUtil;
+
     // 学生列表页（支持分页和搜索）
     @GetMapping("/list")
     public String list(@RequestParam(defaultValue = "1") int page,
                        @RequestParam(required = false) String keyword,
                        Model model) {
+        // 学生身份不允许查看学生列表
+        if (currentUserUtil.isStudent()) {
+            return "redirect:/dashboard";
+        }
         Page<Student> studentPage = studentService.searchStudents(keyword, page - 1, 10);
         model.addAttribute("students", studentPage.getContent());
         model.addAttribute("currentPage", page);
@@ -44,6 +58,10 @@ public class StudentController {
     // 跳转到新增表单
     @GetMapping("/add")
     public String addForm(Model model) {
+        // 学生身份不允许新增学生
+        if (currentUserUtil.isStudent()) {
+            return "redirect:/dashboard";
+        }
         model.addAttribute("student", new Student());
         model.addAttribute("teacherList", userService.findTeachers());
         model.addAttribute("subjects", TeacherStudentService.SUBJECTS);
